@@ -5,11 +5,17 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Todo } from "./interfaces/interfaces";
 export namespace Components {
     interface TodoList {
+        "todos": Todo[];
     }
     interface TodoSite {
     }
+}
+export interface TodoListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTodoListElement;
 }
 declare global {
     interface HTMLTodoListElement extends Components.TodoList, HTMLStencilElement {
@@ -31,6 +37,8 @@ declare global {
 }
 declare namespace LocalJSX {
     interface TodoList {
+        "onToggleTodo"?: (event: TodoListCustomEvent<any>) => void;
+        "todos"?: Todo[];
     }
     interface TodoSite {
     }

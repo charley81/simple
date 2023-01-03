@@ -1,4 +1,5 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, State, Listen } from '@stencil/core';
+import { Todo } from '../../interfaces/interfaces';
 
 @Component({
   tag: 'todo-site',
@@ -6,6 +7,27 @@ import { Component, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class TodoSite {
+  @State() todos: Todo[] = [
+    { task: 'Cook', completed: false },
+    { task: 'Dance', completed: true },
+    { task: 'Eat', completed: false },
+  ];
+
+  @Listen('toggleTodo')
+  toggleTodo(e): void {
+    const todo = e.detail;
+    this.todos = this.todos.map(x => {
+      if (x.task === todo.task) {
+        const updated = {
+          task: x.task,
+          completed: !x.completed,
+        };
+        return updated;
+      }
+      return x;
+    });
+  }
+
   render() {
     return (
       <Host>
@@ -15,7 +37,7 @@ export class TodoSite {
           </div>
         </nav>
         <main>
-          <todo-list></todo-list>
+          <todo-list todos={this.todos}></todo-list>
         </main>
       </Host>
     );
