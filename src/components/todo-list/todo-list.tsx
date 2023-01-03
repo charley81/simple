@@ -15,7 +15,6 @@ export class TodoList {
   }
 
   handleToggleTodo(todo: Todo) {
-    console.log('handle toggle todo');
     this.toggleTodo.emit(todo);
   }
 

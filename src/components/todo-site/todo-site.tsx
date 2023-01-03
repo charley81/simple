@@ -28,6 +28,15 @@ export class TodoSite {
     });
   }
 
+  @Listen('newTodo')
+  newTodo(e) {
+    const newTodo = {
+      task: e.detail,
+      completed: false,
+    };
+    this.todos = [...this.todos, newTodo];
+  }
+
   render() {
     return (
       <Host>
@@ -36,6 +45,9 @@ export class TodoSite {
             <h2>simple</h2>
           </div>
         </nav>
+        <header>
+          <todo-form></todo-form>
+        </header>
         <main>
           <todo-list todos={this.todos}></todo-list>
         </main>

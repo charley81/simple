@@ -7,17 +7,29 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Todo } from "./interfaces/interfaces";
 export namespace Components {
+    interface TodoForm {
+    }
     interface TodoList {
         "todos": Todo[];
     }
     interface TodoSite {
     }
 }
+export interface TodoFormCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLTodoFormElement;
+}
 export interface TodoListCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLTodoListElement;
 }
 declare global {
+    interface HTMLTodoFormElement extends Components.TodoForm, HTMLStencilElement {
+    }
+    var HTMLTodoFormElement: {
+        prototype: HTMLTodoFormElement;
+        new (): HTMLTodoFormElement;
+    };
     interface HTMLTodoListElement extends Components.TodoList, HTMLStencilElement {
     }
     var HTMLTodoListElement: {
@@ -31,11 +43,15 @@ declare global {
         new (): HTMLTodoSiteElement;
     };
     interface HTMLElementTagNameMap {
+        "todo-form": HTMLTodoFormElement;
         "todo-list": HTMLTodoListElement;
         "todo-site": HTMLTodoSiteElement;
     }
 }
 declare namespace LocalJSX {
+    interface TodoForm {
+        "onNewTodo"?: (event: TodoFormCustomEvent<any>) => void;
+    }
     interface TodoList {
         "onToggleTodo"?: (event: TodoListCustomEvent<any>) => void;
         "todos"?: Todo[];
@@ -43,6 +59,7 @@ declare namespace LocalJSX {
     interface TodoSite {
     }
     interface IntrinsicElements {
+        "todo-form": TodoForm;
         "todo-list": TodoList;
         "todo-site": TodoSite;
     }
@@ -51,6 +68,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "todo-form": LocalJSX.TodoForm & JSXBase.HTMLAttributes<HTMLTodoFormElement>;
             "todo-list": LocalJSX.TodoList & JSXBase.HTMLAttributes<HTMLTodoListElement>;
             "todo-site": LocalJSX.TodoSite & JSXBase.HTMLAttributes<HTMLTodoSiteElement>;
         }
