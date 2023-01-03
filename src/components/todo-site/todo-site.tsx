@@ -9,7 +9,14 @@ export class TodoSite {
   render() {
     return (
       <Host>
-        <h1>todo site</h1>
+        <nav>
+          <div>
+            <h2>simple</h2>
+          </div>
+        </nav>
+        <main>
+          <todo-list></todo-list>
+        </main>
       </Host>
     );
   }

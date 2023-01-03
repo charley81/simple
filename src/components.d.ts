@@ -6,17 +6,17 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
+    interface TodoList {
     }
     interface TodoSite {
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLTodoListElement extends Components.TodoList, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLTodoListElement: {
+        prototype: HTMLTodoListElement;
+        new (): HTMLTodoListElement;
     };
     interface HTMLTodoSiteElement extends Components.TodoSite, HTMLStencilElement {
     }
@@ -25,17 +25,17 @@ declare global {
         new (): HTMLTodoSiteElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "todo-list": HTMLTodoListElement;
         "todo-site": HTMLTodoSiteElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
+    interface TodoList {
     }
     interface TodoSite {
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "todo-list": TodoList;
         "todo-site": TodoSite;
     }
 }
@@ -43,7 +43,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "todo-list": LocalJSX.TodoList & JSXBase.HTMLAttributes<HTMLTodoListElement>;
             "todo-site": LocalJSX.TodoSite & JSXBase.HTMLAttributes<HTMLTodoSiteElement>;
         }
     }
